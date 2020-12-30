@@ -11,19 +11,27 @@ from .agent import Agent
 '''
 Emulated dictionary of dictionaries
 '''
+
+
 class Constraints:
 
     def __init__(self):
         #                                   time,         obstacles
-        self.agent_constraints: Dict[Agent: Dict[int, Set[Tuple[int, int]]]] = dict()
+        self.agent_constraints: Dict[Agent: Dict[int,
+                                                 Set[Tuple[int, int]]]] = dict()
 
     '''
     Deepcopy self with additional constraints
     '''
+
+    # -> 函数标注符号。
     def fork(self, agent: Agent, obstacle: Tuple[int, int], start: int, end: int) -> 'Constraints':
+        # deepcopy，意味着agent_constraints_copy是跟随agent_constraints变化而变化的副本。
         agent_constraints_copy = deepcopy(self.agent_constraints)
+
         for time in range(start, end):
-            agent_constraints_copy.setdefault(agent, dict()).setdefault(time, set()).add(obstacle)
+            agent_constraints_copy.setdefault(
+                agent, dict()).setdefault(time, set()).add(obstacle)
         new_constraints = Constraints()
         new_constraints.agent_constraints = agent_constraints_copy
         return new_constraints
@@ -40,5 +48,3 @@ class Constraints:
 
     def __str__(self):
         return str(self.agent_constraints)
-
-

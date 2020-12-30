@@ -9,6 +9,7 @@ import numpy as np
 
 class Agent:
 
+    # 初始化方法，初始化起点元组和终点元组
     def __init__(self, start: Tuple[int, int], goal: Tuple[int, int]):
         self.start = np.array(start)
         self.goal = np.array(goal)
